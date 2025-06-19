@@ -1,18 +1,17 @@
-name: Execução de testes
+name: Tests Executions
 on:
     workflow_call:
 jobs:
     unity-test:
-        name: Teste de Unidade
+        name: Unity Tests
         runs-on: ubuntu-latest
         steps:
-            -   name: Obtendo código do projeto
+            -   name: Get Project Code
                 uses: actions/checkout@v4
-            -   name: Setup dotnet
+            -   name: Dotnet Setup
                 uses: actions/setup-dotnet@v4
                 with:
                     dotnet-version: "8.0.300"
-            -   name: Execução do teste de Unidade
+            -   name: Unity Test Execution
                 working-directory: ./src
                 run: dotnet test ./Review-Filmes.Test.Unit/Review-Filmes.Test.Unit.csproj
-                
