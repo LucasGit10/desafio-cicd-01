@@ -1,10 +1,20 @@
 # name: Kubernetes Deploy
 # on:
 #     workflow_call:
+#         inputs:
+#             environment_name:
+#                 type: string
+#                 required: true
+#             environment_url:
+#                 type: string
+#                 required: true
 # jobs:
 #     deploy:
 #         name: "Deploy"
 #         runs-on: ubuntu-latest
+#         environment:
+#             name: ${{ inputs.environment_name }}
+#             url: ${{ inputs.environment_url }}
 #         steps:
 #             -   name: Getting Code
 #                 uses: actions/checkout@v4
@@ -14,9 +24,13 @@
 #                 with:
 #                     method: kubeconfig
 #                     kubeconfig: ${{ secrets.K8S_CONFIG }}
+#             -   name: Deployment Update
+#                 run: "sed -i 's/host: homologacao.com/host: ${{ vars.BASE_URL }}/g' k8s/deployment.yaml"
+
 #             -   name: Kubernetes Deploy
 #                 uses: Azure/k8s-deploy@v5
 #                 with:
+#                     namespace: ${{ secrets.K8S_NAMESPACE }}
 #                     manifests: |
 #                         k8s/deployment.yaml
 #                     images: |

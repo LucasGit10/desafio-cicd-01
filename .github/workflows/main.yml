@@ -66,3 +66,13 @@ jobs:
     #     needs: [release]
     #     uses: LucasGit10/desafio-cicd-01/.github/workflows/deploy.yml@main
     #     secrets: inherit
+    #     with: 
+    #         environment-name: homologacao
+    #         environment-url: http://<url>.com
+    # deploy-producao:
+    #     needs: [release]
+    #     uses: LucasGit10/desafio-cicd-01/.github/workflows/deploy.yml@main
+    #     secrets: inherit
+    #     with: 
+    #         environment-name: producao
+    #         environment-url: http://<url>.com
