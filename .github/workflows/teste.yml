@@ -48,7 +48,7 @@ jobs:
     #         -   name: JDK Setup
     #             uses: actions/setup-java@v4
     #             with:
-        #             distribution: adopt
+    #                 distribution: adopt
     #                 java-version: '21'
     #         -   name: Dotnet Setup
     #             uses: actions/setup-dotnet@v4
@@ -59,7 +59,17 @@ jobs:
     #         -   name: Build and Analisys
     #             working-directory: ./src
     #             run:
-    #                 dotnet sonarscanner begin
+    #                 dotnet sonarscanner begin ${{ secrets.SONAR_HOST_URL }}
     #                 dotnet build src/Review-Filmes.sln
-    #                 dotnet sonarscanner end
-                
+    #                 dotnet sonarscanner end ${{ secrets.SONAR_TOKEN }}
+    #         -   name: Quality Gate Verification
+    #             uses: sonarsources/sonarqube-quality-gate-action@master
+    #              id: sonarqube-quality-gate-check
+    #             env:
+    #                 SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+    #                 SONAR_HOST_URL: ${{ secrets.SONAR_HOST_URL }}
+    #             with:
+    #                 scanMetadataReportFile: ./src/sonarqube/.sonar/report-task.txt
+    #            -   name: Show Quality Gate Status
+    #                if: ${{ always() }}
+    #                run: echo "The Quality Gate Status is ${{ steps.sonarqube-quality-gate-check.outputs.quality-gate-status}}" 
