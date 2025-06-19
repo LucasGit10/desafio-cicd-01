@@ -31,6 +31,10 @@ jobs:
         steps:
             -   name: Get Project Code
                 uses: actions/checkout@v4
+            -   name: DockerFile Analisys
+                uses: hadolint/hadolint-action@v3.1.0
+                with:
+                    dockerfile: ./src/Review-Filmes.Web/Dockerfile
             -   name: Docker Hub Login
                 uses: docker/login-action@v3
                 with:
@@ -45,3 +49,16 @@ jobs:
                     tags: |
                         lmatrangolo/projeto-devops-pro:latest
                         lmatrangolo/projeto-devops-pro:v${{ github.run_number }}
+            -   name: Trivy Execution
+                uses: aquasecurity/trivy-action@0.23.0
+                with:
+                    scan-type: 'image'
+                    image-ref: lmatrangolo/projeto-devops-pro:v${{ github.run_number }}
+                    format: sarif
+                    output: trivy-docker-result.sarif
+                    severity: 'UNKNOWN,LOW,MEDIUM,HIGH,CRITICAL'
+            -   name: File Trivy Upload to Github
+                uses: github/codeql-action/upload-sarif@v3
+                with:
+                    category: docker-result
+                    sarif_file: trivy-docker-result.sarif
