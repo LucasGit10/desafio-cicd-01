@@ -23,6 +23,7 @@ jobs:
     tests:
         needs: [build]
         uses: LucasGit10/desafio-cicd-01/.github/workflows/teste.yml@main
+        secrets: inherit
     release:
         name: Release Creation
         runs-on: ubuntu-latest
