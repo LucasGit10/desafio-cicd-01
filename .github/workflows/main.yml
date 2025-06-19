@@ -40,4 +40,4 @@ jobs:
                     file: ./src/Review-Filmes.Web/Dockerfile
                     tag: |
                         lmatrangolo/projeto-devops-pro:latest
-                        lmatrangolo/projeto-devops-pro:v${{ github.run_number }}
+                        lmatrangolo/projeto-devops-pro:v ${{ github.run_number }}
