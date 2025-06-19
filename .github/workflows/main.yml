@@ -20,6 +20,9 @@ jobs:
             -   name: Execução do comando build
                 working-directory: ./src
                 run: dotnet build Review-Filmes.sln
+    tests:
+        needs: [build]
+        uses: LucasGit10/desafio-cicd-01/.github/workflows/teste.yml@main
     release:
         name: Criação de Release
         runs-on: ubuntu-latest
