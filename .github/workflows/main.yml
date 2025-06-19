@@ -38,6 +38,6 @@ jobs:
                     push: true
                     context: ./src
                     file: ./src/Review-Filmes.Web/Dockerfile
-                    tag: |
+                    tags: |
                         lmatrangolo/projeto-devops-pro:latest
-                        lmatrangolo/projeto-devops-pro:v ${{ github.run_number }}
+                        lmatrangolo/projeto-devops-pro:v${{ github.run_number }}
